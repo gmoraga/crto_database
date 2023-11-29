@@ -1,0 +1,32 @@
+# Use postgres
+version: '3.1'
+
+networks:
+    bridge-networks-crto:
+        external: true
+
+services:
+  db_postgres_crto:
+    container_name: db-postgres-crto
+    image: postgres:14.2
+    restart: always
+    volumes:
+      - postgresdbcrto:${POSTGRES_VOLUMES}
+    ports:                               
+      - "5432:5432"
+    networks:
+      - bridge-networks-crto
+    environment:
+      POSTGRES_DB: testdb
+      POSTGRES_USER: admin              
+      POSTGRES_PASSWORD: admin
+      
+volumes:
+  postgresdbcrto:
+    driver: local
+
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - 8080:8080
